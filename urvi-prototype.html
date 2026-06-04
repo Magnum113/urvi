@@ -21,7 +21,8 @@
     --sh-3:0 30px 70px -20px rgba(16,24,40,.35);
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  html{overflow-x:hidden}
+  body{font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:hidden}
   a{color:inherit;text-decoration:none}
   button{font-family:inherit;cursor:pointer;border:0;background:none}
   input,select{font-family:inherit}
@@ -101,14 +102,13 @@
   @keyframes sk{to{background-position:-200% 0}}
   .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:.4s;z-index:1}
   .card:hover .ph img{transform:scale(1.04)}
-  .ph .scrim{position:absolute;inset:0 0 auto 0;height:64px;background:linear-gradient(rgba(0,0,0,.28),transparent);z-index:2;pointer-events:none}
   .ph .emoji{position:absolute;inset:0;display:none;place-items:center;font-size:52px;z-index:1}
   .ph.noimg{animation:none}
   .ph.noimg .emoji{display:grid}
   .ph.noimg img{display:none}
   .badge{position:absolute;top:11px;left:11px;z-index:3;display:inline-flex;align-items:center;gap:5px;background:var(--brand);color:#fff;font-size:11px;font-weight:800;letter-spacing:.02em;padding:5px 10px;border-radius:8px;box-shadow:var(--sh-1)}
   .pcount{position:absolute;bottom:11px;right:11px;z-index:3;display:inline-flex;align-items:center;gap:4px;background:rgba(11,13,14,.62);color:#fff;font-size:11px;font-weight:600;padding:3px 8px;border-radius:7px;backdrop-filter:blur(4px)}
-  .heart{position:absolute;top:9px;right:9px;z-index:3;width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,.92);display:grid;place-items:center;color:#6b7280;transition:.15s;box-shadow:var(--sh-1)}
+  .heart{position:absolute;top:9px;right:9px;z-index:3;width:40px;height:40px;border-radius:11px;background:rgba(255,255,255,.92);display:grid;place-items:center;color:#6b7280;transition:.15s;box-shadow:var(--sh-1)}
   .heart:hover{transform:scale(1.08)}.heart.on{color:var(--red);background:#fff}
   .c-body{padding:14px 15px 16px;display:flex;flex-direction:column;gap:7px;flex:1}
   .c-cat{font-size:11px;font-weight:700;color:var(--brand-ink);text-transform:uppercase;letter-spacing:.04em}
@@ -117,10 +117,11 @@
   .c-meta svg{flex-shrink:0}
   .c-meta .area{font-weight:600;color:var(--ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .c-meta .dt{flex-shrink:0}
-  .c-foot{display:flex;align-items:center;justify-content:space-between;margin-top:9px;padding-top:11px;border-top:1px solid var(--line)}
-  .c-foot .views{font-size:13px;font-weight:600;color:var(--muted);display:flex;align-items:center;gap:4px}
-  .c-foot .more{font-size:13px;font-weight:600;color:var(--muted);display:flex;align-items:center;gap:3px}
-  .card:hover .c-foot .more{color:var(--brand-ink)}
+  .c-foot{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:10px}
+  .c-foot .stats{font-size:12.5px;font-weight:600;color:var(--muted)}
+  .c-foot .more{font-size:13px;font-weight:700;color:var(--brand-ink);display:inline-flex;align-items:center;gap:2px}
+  .c-foot .more svg{transition:transform .15s}
+  .card:hover .c-foot .more svg{transform:translateX(3px)}
   .empty{grid-column:1/-1;text-align:center;padding:70px 20px;color:var(--muted)}
   .empty .big{font-size:46px;margin-bottom:10px}
 
@@ -144,7 +145,7 @@
   .dialog{background:var(--surface);border-radius:22px;box-shadow:var(--sh-3);width:100%;max-height:92vh;overflow:auto;animation:pop .2s cubic-bezier(.2,.8,.2,1)}
   @keyframes pop{from{opacity:0;transform:translateY(14px) scale(.97)}to{opacity:1;transform:none}}
   .dialog::-webkit-scrollbar{width:9px}.dialog::-webkit-scrollbar-thumb{background:#d4d7db;border-radius:8px}
-  .x{position:absolute;top:15px;right:15px;width:38px;height:38px;border-radius:11px;background:rgba(255,255,255,.92);display:grid;place-items:center;color:var(--ink-2);z-index:6;box-shadow:var(--sh-1)}
+  .x{position:absolute;top:14px;right:14px;width:42px;height:42px;border-radius:12px;background:rgba(255,255,255,.92);display:grid;place-items:center;color:var(--ink-2);z-index:6;box-shadow:var(--sh-1)}
   .x:hover{background:#fff;color:var(--ink)}
 
   .d-item{max-width:960px;position:relative}
@@ -221,18 +222,47 @@
     .hero h1{font-size:34px}
   }
   @media(max-width:760px){
+    :root{--mobile-gutter:clamp(18px,5.2vw,24px)}
+    .wrap{padding-left:var(--mobile-gutter);padding-right:var(--mobile-gutter)}
     .grid{grid-template-columns:repeat(2,1fr);gap:14px}
-    header .hdr{flex-wrap:wrap;height:auto;padding:12px 0;gap:12px}
-    .search{order:3;max-width:none;flex-basis:100%}
+    header{background:rgba(255,255,255,.92)}
+    header .hdr{flex-wrap:wrap;justify-content:space-between;height:auto;padding:12px var(--mobile-gutter) 14px;gap:12px}
+    .logo{font-size:20px;gap:9px;min-width:0;letter-spacing:-.02em}
+    .logo .mark{width:38px;height:38px;border-radius:12px;font-size:18px;box-shadow:0 8px 18px rgba(17,160,107,.3)}
+    .actions{gap:0;margin-left:0;flex:0 0 auto}
+    .actions .btn-primary{height:44px;padding:0 16px;border-radius:13px;font-size:13.5px;box-shadow:0 8px 18px rgba(17,160,107,.24)}
+    .search{order:3;max-width:none;flex-basis:100%;height:46px;padding-left:16px;padding-right:5px;gap:9px;box-shadow:0 2px 8px rgba(16,24,40,.08)}
+    .search input{font-size:14.5px;min-width:0}
+    .search .go{height:36px;padding:0 16px;font-size:13.5px}
     .loc,.btn-login{display:none}
     .chipsbar{position:static}
-    .wrap{padding:0 16px}
+    .hero{padding:22px var(--mobile-gutter) 16px;gap:20px}
+    .hero .eyebrow{height:30px;margin-bottom:14px}
+    .hero .lead{margin-top:12px;font-size:15.5px}
+    .hero .cta{margin-top:20px}
+    .hero .trust{margin-top:16px}
     .d-item .row{grid-template-columns:1fr}
     .gallery{border-radius:22px 22px 0 0}
     .gmain{aspect-ratio:16/11}
     .promo{padding:26px}.promo .pbtn{margin-left:0;flex-basis:100%}
+    .hero h1 br{display:none}
+    .collage{order:0;grid-template-columns:1.35fr 1fr;grid-template-rows:1fr;grid-template-areas:"a b";aspect-ratio:2.25/1;gap:10px}
+    .c-tile:nth-child(n+3){display:none}
+    .c-tile{border-radius:14px}
+    .c-tile{animation:none}
+    .c-tile .ohint{display:none}
+    .side{padding:24px 20px 22px}
+    .d-pay{padding:26px 20px}
+    .mapbox{height:340px;margin-bottom:40px}
   }
-  @media(max-width:420px){.grid{grid-template-columns:1fr 1fr;gap:12px}.hero h1{font-size:29px}}
+  @media(max-width:420px){.grid{grid-template-columns:1fr 1fr;gap:12px}.hero h1{font-size:29px}.hero .cta{flex-direction:column}.hero .cta .btn{width:100%}}
+  @media(max-width:380px){
+    :root{--mobile-gutter:16px}
+    .logo{font-size:18px}.logo .mark{width:36px;height:36px}
+    .actions .btn-primary{width:44px;padding:0;font-size:0;gap:0}
+    .actions .btn-primary::before{content:"+";font-size:24px;line-height:1;font-weight:800}
+    .search .go{padding:0 14px}
+  }
 
   .mapbox{position:relative;height:480px;border-radius:20px;overflow:hidden;border:1px solid var(--line);box-shadow:var(--sh-2);margin-bottom:60px;background:var(--line)}
   #map{height:100%;width:100%;z-index:1}
@@ -253,6 +283,14 @@
   .mpop-body button:hover{background:var(--brand-ink)}
   .map-legend{position:absolute;left:14px;bottom:14px;z-index:2;background:rgba(255,255,255,.94);backdrop-filter:blur(6px);border-radius:11px;padding:9px 13px;font-size:12.5px;font-weight:600;color:var(--ink-2);box-shadow:var(--sh-1);display:flex;align-items:center;gap:8px}
   .map-legend .pindot{width:14px;height:14px;background:var(--brand);border:2px solid #fff;border-radius:50% 50% 50% 0;transform:rotate(-45deg);box-shadow:var(--sh-1)}
+
+  .ph.noimg{animation:none;background:linear-gradient(135deg,#eef2f0,#f6f8f7)}
+  .ph .nolabel{position:absolute;left:0;right:0;bottom:12px;z-index:1;text-align:center;font-size:11px;font-weight:600;color:var(--muted);display:none}
+  .ph.noimg .nolabel{display:block}
+  .ph.noimg .emoji{transform:translateY(-7px);opacity:.85}
+  .access-note{display:flex;gap:9px;align-items:flex-start;background:var(--brand-soft);color:var(--brand-ink);border:1px solid #bfe9d6;border-radius:12px;padding:12px 14px;font-size:13.5px;font-weight:600;line-height:1.5;margin:14px 0 2px}
+  .access-note .lk{flex:0 0 auto;font-size:15px;line-height:1.5}
+  .access-note b{font-weight:800}
 </style>
 </head>
 <body>
@@ -278,7 +316,7 @@
 <section class="wrap hero">
   <div>
     <span class="eyebrow">⚡ Бесплатные вещи рядом</span>
-    <h1>Зачем платить,<br>если можно <span class="hl">забрать даром</span></h1>
+    <h1>Зачем платить,<br> если можно <span class="hl">забрать даром</span></h1>
     <p class="lead">Все объявления «отдам бесплатно» по Махачкале — в одной ленте. Мебель, техника, питомцы и вещи рядом с вами.</p>
     <div class="cta">
       <button class="btn btn-primary" style="height:50px;padding:0 24px;font-size:15px" onclick="document.getElementById('grid').scrollIntoView({behavior:'smooth'})">Смотреть, что отдают</button>
@@ -322,17 +360,16 @@
   <div class="promo">
     <div class="ic">⚡</div>
     <div>
-      <h3>Урви+ — успевай первым</h3>
-      <p>Лента всегда бесплатна. Подписка нужна только для скорости: мгновенные уведомления о новинках, бронь вещи на 15 минут и фильтр по районам.</p>
+      <h3>Урви+ — открой контакты</h3>
+      <p>Смотреть объявления можно бесплатно. Подписка открывает доступ к контактам: при оплате сразу становятся доступны контакты со всех объявлений.</p>
     </div>
-    <button class="pbtn" onclick="openPaywall(null)">Оформить за 199 ₽/мес</button>
+    <button class="pbtn" onclick="openPaywall(null)">Открыть все объявления</button>
   </div>
 </section>
 
 <footer>
   <div class="wrap ft">
     <a class="logo"><span class="mark">⚡</span>Урви</a>
-    <span>Прототип · источник объявлений — Supabase + Avito CSV (04.06.2026)</span>
     <span>© 2026 Урви</span>
   </div>
 </footer>
@@ -369,17 +406,18 @@
   <div class="dialog d-pay">
     <button class="x" onclick="closeAll()">✕</button>
     <div class="crown">⚡</div>
-    <h2>Подключите Урви+</h2>
-    <p class="lead">Бронь и переход к объявлению доступны в Урви+. Оформите, чтобы успевать первыми.</p>
+    <h2>Откройте все объявления</h2>
+    <p class="lead">Подписка Урви+ открывает доступ ко всем объявлениям: фото, контакты отдающего и адрес самовывоза.</p>
+    <div class="access-note"><span class="lk">🔓</span><span>После оплаты открываются <b>все объявления целиком</b> — без ограничений</span></div>
     <ul class="perks">
+      <li><span class="ok">✓</span> <b>Полный доступ ко всем объявлениям рядом</b></li>
+      <li><span class="ok">✓</span> Контакты отдающего и адрес самовывоза</li>
       <li><span class="ok">✓</span> Бронь вещи на 15 минут, пока едете</li>
-      <li><span class="ok">✓</span> Мгновенные пуши о новых и ценных вещах</li>
-      <li><span class="ok">✓</span> Фильтр по районам и радиусу</li>
-      <li><span class="ok">✓</span> Без рекламы</li>
+      <li><span class="ok">✓</span> Уведомления о новинках · без рекламы</li>
     </ul>
     <div class="plans">
-      <div class="plan sel" data-plan="month" data-price="199" onclick="selPlan(this)"><div class="pname">Месяц</div><div class="pprice">199 ₽</div><div class="pper">в месяц</div></div>
-      <div class="plan" data-plan="year" data-price="1490" onclick="selPlan(this)"><span class="save">−38%</span><div class="pname">Год</div><div class="pprice">1 490 ₽</div><div class="pper">124 ₽/мес</div></div>
+      <div class="plan" data-plan="week" data-price="99" onclick="selPlan(this)"><div class="pname">Неделя</div><div class="pprice">99 ₽</div><div class="pper">в неделю</div></div>
+      <div class="plan sel" data-plan="month" data-price="199" onclick="selPlan(this)"><span class="save">выгодно</span><div class="pname">Месяц</div><div class="pprice">199 ₽</div><div class="pper">≈ 50 ₽/нед</div></div>
     </div>
     <form id="payForm" onsubmit="pay(event)">
       <div class="field card-input"><label>Номер карты</label><input id="cardNo" inputmode="numeric" maxlength="19" value="4276 1300 0000 1234" required><span class="brand-em">💳</span></div>
@@ -449,7 +487,7 @@ function initCollage(){
   POOL=items.map((it,idx)=>({idx,u:(it.photos&&it.photos[0])||""})).filter(p=>p.u);
   colEl.innerHTML=POOL.slice(0,6).map((p,k)=>tileHTML(p,k===0)).join('');
   collageTimer=setInterval(()=>{
-    const tiles=[...colEl.children];if(tiles.length<2)return;
+    if(document.hidden)return;const tiles=[...colEl.children].filter(t=>t.offsetParent!==null);if(tiles.length<2)return;
     const t=tiles[Math.floor(Math.random()*tiles.length)];
     const cur=new Set(tiles.map(x=>+x.dataset.idx));
     const choices=POOL.filter(p=>!cur.has(p.idx));if(!choices.length)return;
@@ -470,17 +508,17 @@ function render(){
       <div class="ph ${it.photos&&it.photos[0]?'':'noimg'}">
         <img src="${esc(it.photos[0]||'')}" alt="${esc(it.t)}" loading="lazy" referrerpolicy="no-referrer" onerror="this.closest('.ph').classList.add('noimg')">
         <span class="emoji">${it.e}</span>
-        <span class="scrim"></span>
+        <span class="nolabel">Фото пока нет</span>
         <button class="heart" onclick="event.stopPropagation();this.classList.toggle('on')" aria-label="В избранное">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7Z"/></svg>
         </button>
-        ${it.pc?`<span class="pcount">📷 ${esc(it.pc)}</span>`:''}
+        ${it.photos&&it.photos.length?`<span class="pcount">📷 ${it.photos.length}</span>`:''}
       </div>
       <div class="c-body">
         <span class="c-cat">${esc(it.rcat)}</span>
         <h3 class="c-title">${esc(it.t)}</h3>
         <div class="c-meta">${pinSvg()}<span class="area">${esc(it.area)}</span>${it.ago?`<span class="dt">· ${esc(it.ago)}</span>`:''}</div>
-        <div class="c-foot">${it.views?`<span class="views">👁 ${esc((it.views.split(" ")[0])||"")}</span>`:`<span></span>`}<span class="more">Подробнее ›</span></div>
+        <div class="c-foot"><span class="stats">${it.views?`👁 ${esc(it.views.split(" ")[0])}`:""}</span><span class="more">Смотреть<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m9 18 6-6-6-6"/></svg></span></div>
       </div>
     </article>`).join('');
 }
