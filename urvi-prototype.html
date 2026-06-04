@@ -482,15 +482,17 @@ async function loadListings(){
 // hero collage — bento + live rotation, click opens listing
 let collageTimer=null;
 let POOL=[];
+let collageCursor=0;
 const colEl=document.getElementById('collage');
 function tileHTML(p,first){return '<div class="c-tile" data-idx="'+p.idx+'" onclick="openItem('+p.idx+')"><img src="'+esc(p.u)+'" referrerpolicy="no-referrer" onerror="this.style.opacity=0">'+(first?'<span class="tag">Даром · рядом</span>':'')+'<div class="ohint"><b>Открыть ›</b></div></div>';}
 function initCollage(){
   clearInterval(collageTimer);
+  collageCursor=0;
   POOL=items.map((it,idx)=>({idx,u:(it.photos&&it.photos[0])||""})).filter(p=>p.u);
   colEl.innerHTML=POOL.slice(0,6).map((p,k)=>tileHTML(p,k===0)).join('');
   collageTimer=setInterval(()=>{
     if(document.hidden)return;const tiles=[...colEl.children].filter(t=>t.offsetParent!==null);if(tiles.length<2)return;
-    const t=tiles[Math.floor(Math.random()*tiles.length)];
+    const t=tiles[collageCursor%tiles.length];collageCursor++;
     const cur=new Set(tiles.map(x=>+x.dataset.idx));
     const choices=POOL.filter(p=>!cur.has(p.idx));if(!choices.length)return;
     const p=choices[Math.floor(Math.random()*choices.length)];
